@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import NavigationBottom from '../NavigationBar/NavigationBottom';
+import NavigationBottom from '../NavigationBar/BottomNavigationBar';
 
 const BottomNavbarLayout = ({children}: any) => {
   return (

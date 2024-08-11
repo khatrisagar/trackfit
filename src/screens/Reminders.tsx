@@ -2,25 +2,31 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {rootStyles} from '../styles/global.style';
 import CommonCard from '../components/common/CommonCard';
-import AddReminderButton from '../components/reminders/AddReminderButton';
+import TopBackNavigationView from '../components/layout/TopBackNavigationView';
+import ReminderTopBarActions from '../components/reminders/ReminderTopBarActions';
+import {useNavigation} from '@react-navigation/native';
 
 const Reminders = () => {
-  const handleAddReminder = () => {
-    console.log('on add reminderrr');
+  const navigation = useNavigation<any>();
+
+  const handleOnBack = () => {
+    navigation.navigate('home');
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerWrapper}>
-        <Text style={styles.headerText}>Reminders</Text>
-      </View>
+      <TopBackNavigationView
+        title="Reminders"
+        handleOnBack={handleOnBack}
+        headerRightActions={<ReminderTopBarActions />}
+      />
       <CommonCard>
         <Text style={styles.text}>Text</Text>
         <Text style={styles.text}>Text</Text>
       </CommonCard>
 
       <View style={styles.addReminderButtonWrapper}>
-        <AddReminderButton handleClick={handleAddReminder} />
+        {/* <AddReminderButton handleClick={handleAddReminder} /> */}
       </View>
     </View>
   );
@@ -30,9 +36,6 @@ export default Reminders;
 
 const styles: any = StyleSheet.create({
   container: {
-    // flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
     height: '100%',
     padding: 10,
     backgroundColor: rootStyles.primaryBackgroundColor,

@@ -7,51 +7,27 @@ import {useNavigation} from '@react-navigation/native';
 
 const NavigationBottom = () => {
   const navigation = useNavigation<any>();
-  // const navigationRoutes = [
-  //   {name: 'home', label: 'Home', icon: HouseHeartIcon},
-  //   {name: 'profile', label: 'Profile', icon: ProfileIcon},
-  // ];
+  const navigationRoutes = [
+    {name: 'home', label: 'Home', icon: HouseHeartIcon},
+    {name: 'profile', label: 'Profile', icon: ProfileIcon},
+  ];
 
   const handleNavigation = (routeName: string) => {
-    console.log('navigate', routeName);
     navigation.navigate(routeName);
   };
   return (
     <View style={styles.container}>
-      {/* {navigationRoutes.map((navigationInfo, index) => (
+      {navigationRoutes.map(navigationInfo => (
         <TouchableHighlight
-          key={index}
-          // key={navigationInfo.name}
+          key={navigationInfo.name}
           style={styles.touchableHighlightContainer}
           onPress={() => handleNavigation(navigationInfo.name)}>
           <View style={styles.iconContainer}>
-            {React.createElement(navigationInfo.icon, {width: 30, height: 30})}
+            {React.createElement(navigationInfo.icon, {width: 25, height: 25})}
             <Text style={styles.text}>{navigationInfo.label}</Text>
           </View>
         </TouchableHighlight>
-      ))} */}
-      <TouchableHighlight
-        style={styles.touchableHighlightContainer}
-        onPress={() => handleNavigation('home')}>
-        <View style={styles.iconContainer}>
-          <HouseHeartIcon width={30} height={30} />
-          <Text style={styles.text}>Home</Text>
-        </View>
-      </TouchableHighlight>
-      <TouchableHighlight
-        style={styles.touchableHighlightContainer}
-        onPress={() => handleNavigation('profile')}>
-        <View style={styles.iconContainer}>
-          <ProfileIcon width={30} height={30} />
-          <Text style={styles.text}>Profile</Text>
-        </View>
-      </TouchableHighlight>
-      {/* <TouchableHighlight style={styles.touchableHighlightContainer}>
-        <View style={styles.iconContainer}>
-          <ProfileIcon width={30} height={30} />
-          <Text style={styles.text}>Profile</Text>
-        </View>
-      </TouchableHighlight> */}
+      ))}
     </View>
   );
 };
@@ -64,7 +40,7 @@ const styles: any = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingVertical: 12,
+    paddingTop: 8,
     width: '100%',
     paddingHorizontal: 16,
     gap: 16,
@@ -72,20 +48,12 @@ const styles: any = StyleSheet.create({
   text: {
     color: '#ffffff',
   },
-
-  // navigationIcon: {
-  //   width: 40,
-  //   height: 40,
-  //   color: '#ffffff',
-  // },
   touchableHighlightContainer: {
     width: '50%',
-    // height: '100%',
   },
   iconContainer: {
     backgroundColor: rootStyles.secondaryBackgroundColor,
     borderRadius: rootStyles.borderRadius,
-    // width: 300,
     padding: 10,
     display: 'flex',
     alignItems: 'center',
