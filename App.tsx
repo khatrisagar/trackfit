@@ -1,27 +1,37 @@
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Button, Text} from 'react-native';
+import Reminders from './src/screens/Reminders';
 import Home from './src/screens/Home';
 import Profile from './src/screens/Profile';
+// import BottomNavbarLayout from './src/components/layout/BottomNavigationView';
+import NavigationBottom from './src/components/NavigationBar/NavigationBottom';
 
 const Stack = createNativeStackNavigator();
 
 const screens: any = [
   {
-    name: 'Home',
+    name: 'home',
     component: Home,
   },
   {
-    name: 'Profile',
+    name: 'profile',
     component: Profile,
+  },
+  {
+    name: 'reminders',
+    component: Reminders,
   },
 ];
 
 const app = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Navigator
+        initialRouteName={'reminders'}
+        // initialRouteName={'home'}
+        screenOptions={{headerShown: false}}>
+        {/* <BottomNavbarLayout> */}
         {screens.map((screen: any) => (
           <Stack.Screen
             key={screen.name}
@@ -29,7 +39,9 @@ const app = () => {
             component={screen.component}
           />
         ))}
+        {/* </BottomNavbarLayout> */}
       </Stack.Navigator>
+      <NavigationBottom />
     </NavigationContainer>
   );
 };

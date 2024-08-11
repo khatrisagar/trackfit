@@ -1,28 +1,33 @@
 import React from 'react';
-import {View, Text, Button, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
+import {rootStyles} from '../styles/global.style';
+import CommonCard from '../components/common/CommonCard';
 
-const Home = ({navigation}: any) => {
+const Home = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Homeee</Text>
-      <Button
-        title="Go to profile"
-        onPress={() => navigation.navigate('Profile')}
-      />
+      <CommonCard>
+        <Text style={styles.text}>Texttt</Text>
+      </CommonCard>
     </View>
   );
 };
 
 const styles: any = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#252525',
+    // flex: 1,
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    height: '100%',
+    padding: 6,
+    backgroundColor: rootStyles.primaryBackgroundColor,
   },
   text: {
-    color: '#ffffff',
+    color: rootStyles.primaryTextColor,
     fontSize: 20,
+  },
+  button: {
+    cursor: 'pointer',
   },
 });
 

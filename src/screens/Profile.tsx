@@ -1,11 +1,12 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button} from 'react-native';
+
+import {View, Text, Button} from 'react-native';
 
 const Home = ({navigation}: any) => {
   return (
     <View>
       <Text>Profile</Text>
-      <Button title="Go to home" onPress={() => navigation.navigate('Home')} />
+      <Button title="Go to home" onPress={() => navigation.navigate('home')} />
     </View>
   );
 };
