@@ -11,4 +11,5 @@ export const rootStyles = {
   headerTwoFontSize: 24,
   fontSize: 20,
   borderRadius: 12,
+  highlightPrimaryBGColor: '#1C1A1D', // '#141315' ,
 };

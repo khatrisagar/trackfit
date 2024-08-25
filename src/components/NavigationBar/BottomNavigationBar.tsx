@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import {rootStyles} from '../../styles/global.style';
 import {useNavigation} from '@react-navigation/native';
+import {useNavigationState} from '@react-navigation/native';
 
 // icons
 import HouseHeartIcon from '../../assets/icons/house-heart.svg';
@@ -10,6 +11,9 @@ import DummbellIcon from '../../assets/icons/dumbbell.svg';
 
 const NavigationBottom = () => {
   const navigation = useNavigation<any>();
+  const currentRouteName = useNavigationState(
+    state => state.routes[state.index].name,
+  );
   const navigationRoutes = [
     {name: 'home', label: 'Home', icon: HouseHeartIcon},
     {name: 'workout', label: 'Workout', icon: DummbellIcon},
@@ -23,11 +27,23 @@ const NavigationBottom = () => {
     <View style={styles.container}>
       {navigationRoutes.map(navigationInfo => (
         <TouchableHighlight
+          // underlayColor="#1C1A1D"
+          underlayColor={rootStyles.highlightPrimaryBGColor}
           key={navigationInfo.name}
-          style={styles.touchableHighlightContainer}
+          /* eslint-disable */
+          style={{
+            ...styles.touchableHighlightContainer,
+            opacity: currentRouteName === navigationInfo.name ? 1 : 0.7,
+            // backgroundColor:
+            //   currentRouteName === navigationInfo.name ? '#141315' : '#000000',
+          }}
+          /* eslint-enabled */
           onPress={() => handleNavigation(navigationInfo.name)}>
           <View style={styles.iconContainer}>
-            {React.createElement(navigationInfo.icon, {width: 25, height: 25})}
+            {React.createElement(navigationInfo.icon, {
+              width: 22,
+              height: 22,
+            })}
             <Text style={styles.text}>{navigationInfo.label}</Text>
           </View>
         </TouchableHighlight>
@@ -44,7 +60,6 @@ const styles: any = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    paddingTop: 8,
     width: '100%',
     paddingHorizontal: 16,
     gap: 16,
@@ -54,9 +69,10 @@ const styles: any = StyleSheet.create({
   },
   touchableHighlightContainer: {
     width: '33%',
+    borderRadius: rootStyles.borderRadius,
   },
   iconContainer: {
-    backgroundColor: rootStyles.secondaryBackgroundColor,
+    // backgroundColor: rootStyles.secondaryBackgroundColor,
     borderRadius: rootStyles.borderRadius,
     padding: 10,
     display: 'flex',

@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Keyboard,
   Pressable,
   StyleSheet,
   Text,
@@ -19,9 +20,11 @@ const CreateReminderDrawer = ({handleAddReminder}: any) => {
   };
 
   const handleCancel = () => {
+    Keyboard.dismiss();
     handleAddReminder();
   };
   const handleSaveReminder = () => {
+    Keyboard.dismiss();
     handleAddReminder();
   };
 
