@@ -12,4 +12,5 @@ export const rootStyles = {
   fontSize: 20,
   borderRadius: 12,
   highlightPrimaryBGColor: '#1C1A1D', // '#141315' ,
+  highlightSecondaryBGColor: '#141315', // '#141315' ,
 };

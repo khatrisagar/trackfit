@@ -55,6 +55,7 @@ const CreateReminderDrawer = ({handleAddReminder}: any) => {
             title="cancel"
             onPress={handleCancel}
           />
+          <View style={styles.separator} />
           <CustomButton
             textColor="#dadada"
             width="50%"
@@ -92,6 +93,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 30,
+    alignItems: 'center',
+    gap: 8,
   },
 
   // reminder type selector start
@@ -99,6 +102,11 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   // reminder type selector end
+  separator: {
+    width: 1,
+    height: '70%',
+    backgroundColor: '#383838',
+  },
 });
 
 export default CreateReminderDrawer;

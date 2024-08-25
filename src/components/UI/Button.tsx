@@ -6,7 +6,7 @@ const CustomButton = ({
   onPress,
   title,
   width = '150',
-  fontSize = 24,
+  fontSize = 22,
   textColor = '#ffffff',
   borderRadius = 16,
 }: any) => {

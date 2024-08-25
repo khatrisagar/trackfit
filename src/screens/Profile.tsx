@@ -1,18 +1,14 @@
 import React from 'react';
 
-import {View, Text, Button, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import NavigationBottom from '../components/NavigationBar/BottomNavigationBar';
 import {rootStyles} from '../styles/global.style';
 
-const Home = ({navigation}: any) => {
+const Home = () => {
   return (
     <View style={styles.container}>
       <View style={styles.profileContainer}>
         <Text>Profile</Text>
-        <Button
-          title="Go to home"
-          onPress={() => navigation.navigate('home')}
-        />
       </View>
       <NavigationBottom />
     </View>
@@ -25,7 +21,8 @@ const styles: any = StyleSheet.create({
     backgroundColor: rootStyles.primaryBackgroundColor,
   },
   profileContainer: {
-    // height: '90%',
+    flex: 1,
+    display: 'flex',
   },
   text: {
     fontSize: 18,

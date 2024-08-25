@@ -8,9 +8,10 @@ const TopBackNavigation = ({title, handleOnBack, headerRightActions}: any) => {
     <View style={styles.wrapper}>
       <View style={styles.leftContainer}>
         <TouchableHighlight
+          underlayColor={rootStyles.secondaryBackgroundColor}
           onPress={handleOnBack}
           style={styles.backIconWrapper}>
-          <BackIcon height={28} width={28} />
+          <BackIcon height={25} width={25} />
         </TouchableHighlight>
         <Text style={styles.pageTitle}>{title}</Text>
       </View>
@@ -29,20 +30,22 @@ const styles: any = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingTop: 10,
-    paddingLeft: 6,
+    // paddingTop: 10,
   },
   leftContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 6,
   },
   rightContainer: {
     marginTop: 2,
-    marginRight: 4,
+    paddingRight: 6,
   },
-  backIconWrapper: {},
+  backIconWrapper: {
+    padding: 10,
+    borderRadius: 50,
+  },
   pageTitle: {
     color: rootStyles.primaryTextColor,
     fontSize: rootStyles.headerTwoFontSize,

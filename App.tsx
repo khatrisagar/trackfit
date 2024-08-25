@@ -12,10 +12,16 @@ const screens: any = [
   {
     name: 'home',
     component: Home,
+    options: {
+      animation: 'none',
+    },
   },
   {
     name: 'profile',
     component: Profile,
+    options: {
+      animation: 'none',
+    },
   },
   {
     name: 'reminders',
@@ -27,21 +33,25 @@ const screens: any = [
   },
 ];
 
-const app = () => {
+const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName={'home'}
-        screenOptions={{headerShown: false}}>
+        screenOptions={{
+          headerShown: false,
+          // animation: 'none',
+        }}>
         {screens.map((screen: any) => (
           <Stack.Screen
             key={screen.name}
             name={screen.name}
             component={screen.component}
+            options={screen.options}
           />
         ))}
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
-export default app;
+export default App;
