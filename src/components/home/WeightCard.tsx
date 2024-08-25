@@ -1,11 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 import {rootStyles} from '../../styles/global.style';
 
-const ReminderCard = () => {
+const WeightCard = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>ReminderCard</Text>
+      <Text style={styles.text}>Weight</Text>
     </View>
   );
 };
@@ -21,4 +21,4 @@ const styles: any = StyleSheet.create({
     fontSize: rootStyles.fontSize,
   },
 });
-export default ReminderCard;
+export default WeightCard;

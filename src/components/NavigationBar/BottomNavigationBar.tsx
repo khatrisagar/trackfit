@@ -1,14 +1,18 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import {rootStyles} from '../../styles/global.style';
+import {useNavigation} from '@react-navigation/native';
+
+// icons
 import HouseHeartIcon from '../../assets/icons/house-heart.svg';
 import ProfileIcon from '../../assets/icons/profile.svg';
-import {useNavigation} from '@react-navigation/native';
+import DummbellIcon from '../../assets/icons/dumbbell.svg';
 
 const NavigationBottom = () => {
   const navigation = useNavigation<any>();
   const navigationRoutes = [
     {name: 'home', label: 'Home', icon: HouseHeartIcon},
+    {name: 'workout', label: 'Workout', icon: DummbellIcon},
     {name: 'profile', label: 'Profile', icon: ProfileIcon},
   ];
 
@@ -49,7 +53,7 @@ const styles: any = StyleSheet.create({
     color: '#ffffff',
   },
   touchableHighlightContainer: {
-    width: '50%',
+    width: '33%',
   },
   iconContainer: {
     backgroundColor: rootStyles.secondaryBackgroundColor,

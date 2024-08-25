@@ -1,10 +1,12 @@
 import React from 'react';
-import {View} from 'react-native';
+import {TouchableHighlight, View} from 'react-native';
 import PlusIcon from '../../assets/icons/plus.svg';
-const ReminderTopBarActions = () => {
+const ReminderTopBarActions = ({handleAddReminder}: any) => {
   return (
     <View>
-      <PlusIcon height={25} width={25} />
+      <TouchableHighlight onPress={handleAddReminder}>
+        <PlusIcon height={25} width={25} />
+      </TouchableHighlight>
     </View>
   );
 };

@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Reminders from './src/screens/Reminders';
 import Home from './src/screens/Home';
 import Profile from './src/screens/Profile';
+import Workout from './src/screens/Workout';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,10 @@ const screens: any = [
   {
     name: 'reminders',
     component: Reminders,
+  },
+  {
+    name: 'workout',
+    component: Workout,
   },
 ];
 

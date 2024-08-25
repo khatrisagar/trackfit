@@ -10,7 +10,7 @@ const TopBackNavigation = ({title, handleOnBack, headerRightActions}: any) => {
         <TouchableHighlight
           onPress={handleOnBack}
           style={styles.backIconWrapper}>
-          <BackIcon height={30} width={30} />
+          <BackIcon height={28} width={28} />
         </TouchableHighlight>
         <Text style={styles.pageTitle}>{title}</Text>
       </View>
@@ -40,10 +40,11 @@ const styles: any = StyleSheet.create({
   },
   rightContainer: {
     marginTop: 2,
+    marginRight: 4,
   },
   backIconWrapper: {},
   pageTitle: {
-    color: rootStyles.secondaryTextColor,
+    color: rootStyles.primaryTextColor,
     fontSize: rootStyles.headerTwoFontSize,
   },
 });
