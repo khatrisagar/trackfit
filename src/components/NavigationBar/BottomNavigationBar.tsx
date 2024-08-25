@@ -33,7 +33,7 @@ const NavigationBottom = () => {
           /* eslint-disable */
           style={{
             ...styles.touchableHighlightContainer,
-            opacity: currentRouteName === navigationInfo.name ? 1 : 0.7,
+            opacity: currentRouteName === navigationInfo.name ? 1 : 0.6,
             // backgroundColor:
             //   currentRouteName === navigationInfo.name ? '#141315' : '#000000',
           }}

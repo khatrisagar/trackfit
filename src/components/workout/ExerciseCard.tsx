@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import CommonCard from '../common/CommonCard';
+import {rootStyles} from '../../styles/global.style';
 
 const ExerciseCard = ({name}: any) => {
   return (
@@ -26,5 +27,6 @@ const styles = StyleSheet.create({
 
   cardText: {
     fontSize: 20,
+    color: rootStyles.primaryTextColor,
   },
 });

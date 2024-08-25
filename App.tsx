@@ -30,6 +30,9 @@ const screens: any = [
   {
     name: 'workout',
     component: Workout,
+    options: {
+      animation: 'none',
+    },
   },
 ];
 
