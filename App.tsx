@@ -5,6 +5,7 @@ import Reminders from './src/screens/Reminders';
 import Home from './src/screens/Home';
 import Profile from './src/screens/Profile';
 import Workout from './src/screens/Workout';
+import Weight from './src/screens/Weight';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,16 +17,21 @@ const screens: any = [
       animation: 'none',
     },
   },
+  // all the routes from  home
+  {
+    name: 'reminders',
+    component: Reminders,
+  },
+  {
+    name: 'weight',
+    component: Weight,
+  },
   {
     name: 'profile',
     component: Profile,
     options: {
       animation: 'none',
     },
-  },
-  {
-    name: 'reminders',
-    component: Reminders,
   },
   {
     name: 'workout',
@@ -40,7 +46,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName={'home'}
+        initialRouteName={'weight'}
         screenOptions={{
           headerShown: false,
           // animation: 'none',

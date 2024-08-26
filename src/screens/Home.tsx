@@ -21,7 +21,7 @@ const Home = () => {
           <TouchableRipple
             rippleColor="rgba(0, 0, 0, 0.32)"
             borderless={true}
-            onPress={() => handleNavigation('reminders')}>
+            onPress={() => handleNavigation('weight')}>
             <CommonCard>
               <WeightCard />
             </CommonCard>
