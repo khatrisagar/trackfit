@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import {View, StyleSheet} from 'react-native';
 import ScrollPicker from '../UI/ScrollPicker';
 import {Text} from 'react-native-paper';
@@ -8,43 +8,43 @@ interface DateValue {
   month: number;
 }
 
-const DateTimePicker: React.FC<any> = ({pickerStyle}) => {
+interface DateTimePickerProps {
+  pickerStyle?: object;
+}
+
+const DateTimePicker: React.FC<DateTimePickerProps> = ({pickerStyle}) => {
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
 
-  // Generate days and months for the entire year
-  const days: {caption: string; value: DateValue}[] = [];
-  const months: {caption: string; value: number}[] = [];
-
-  for (let month = 0; month < 12; month++) {
-    const daysInMonth = new Date(currentYear, month + 1, 0).getDate();
-    for (let day = 1; day <= daysInMonth; day++) {
-      const date = new Date(currentYear, month, day);
-      const dayCaption = date.toLocaleDateString('en-US', {
-        weekday: 'short',
-        day: 'numeric',
-        month: 'short',
-      });
-      days.push({caption: dayCaption, value: {day, month: month + 1}});
+  // Memoize days and months
+  const days = useMemo(() => {
+    const result: {caption: string; value: DateValue}[] = [];
+    for (let month = 0; month < 12; month++) {
+      const daysInMonth = new Date(currentYear, month + 1, 0).getDate();
+      for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(currentYear, month, day);
+        const dayCaption = date.toLocaleDateString('en-US', {
+          weekday: 'short',
+          day: 'numeric',
+          month: 'short',
+        });
+        result.push({caption: dayCaption, value: {day, month: month + 1}});
+      }
     }
-    // For months
-    const monthCaption = new Date(currentYear, month).toLocaleDateString(
-      'en-US',
-      {month: 'long'},
-    );
-    months.push({caption: monthCaption, value: month + 1});
-  }
+    return result;
+  }, [currentYear]);
 
-  const periods = [
-    {caption: 'AM', value: 'AM'},
-    {caption: 'PM', value: 'PM'},
-  ];
+  const periods = useMemo(
+    () => [
+      {caption: 'AM', value: 'AM'},
+      {caption: 'PM', value: 'PM'},
+    ],
+    [],
+  );
 
-  // Generate hours and minutes
-  const hours = Array.from({length: 12}, (_, i) => i + 1);
-  const minutes = Array.from({length: 60}, (_, i) => i);
+  const hours = useMemo(() => Array.from({length: 12}, (_, i) => i + 1), []);
+  const minutes = useMemo(() => Array.from({length: 60}, (_, i) => i), []);
 
-  // Initialize selected values to the current date and time
   const [selectedDate, setSelectedDate] = useState<DateValue>(
     days.find(
       day =>
@@ -62,7 +62,7 @@ const DateTimePicker: React.FC<any> = ({pickerStyle}) => {
   const [selectedMinute, setSelectedMinute] = useState<number>(
     currentDate.getMinutes(),
   );
-
+  console.log('date pcicker created again');
   return (
     <View style={styles.container}>
       <ScrollPicker

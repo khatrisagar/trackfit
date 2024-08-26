@@ -40,7 +40,11 @@ const Weight = ({navigation}: any) => {
         <Text style={styles.text}>Text</Text>
       </CommonCard>
       <Button title="Open Drawer" onPress={openDrawer} />
-
+      {/* <DateTimePicker
+        pickerStyle={{
+          backgroundColor: rootStyles.secondaryBackgroundColor,
+        }}
+      /> */}
       <BottomDrawer
         handleSave={handleSaveWeight}
         handleCancel={handleCancelWeight}

@@ -18,7 +18,6 @@ interface ScrollPickerProps {
   pickerStyle: any;
   onValueChange: (value: string) => void;
 }
-
 const ScrollPicker: React.FC<ScrollPickerProps> = ({
   data,
   width = 200,
@@ -26,27 +25,25 @@ const ScrollPicker: React.FC<ScrollPickerProps> = ({
   pickerStyle = {backgroundColor: rootStyles.primaryBackgroundColor},
   onValueChange,
 }) => {
+  console.log('scroller mount');
   const [selectedIndex, setSelectedIndex] = useState<number>(
     data.indexOf(selectedValue),
   );
   const scrollViewRef = useRef<ScrollView>(null);
-  const debounceTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  const debounce = (func: () => void, delay: number) => {
-    if (debounceTimeoutRef.current) {
-      clearTimeout(debounceTimeoutRef.current);
-    }
-    debounceTimeoutRef.current = setTimeout(func, delay);
-  };
+  const isDraggingRef = useRef(false); // Track if the user is dragging
 
   const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     const yOffset = event.nativeEvent.contentOffset.y;
     const newIndex = Math.round(yOffset / ITEM_HEIGHT);
+
     if (newIndex !== selectedIndex) {
       setSelectedIndex(newIndex);
-      debounce(() => {
-        onValueChange(data[newIndex]);
-      }, 1500); // Adjusted debounce delay to 300ms
+    }
+  };
+
+  const handleMomentumScrollEnd = () => {
+    if (scrollViewRef.current && !isDraggingRef.current) {
+      onValueChange(data[selectedIndex]);
     }
   };
 
@@ -55,7 +52,8 @@ const ScrollPicker: React.FC<ScrollPickerProps> = ({
       const initialOffset = selectedIndex * ITEM_HEIGHT;
       scrollViewRef.current.scrollTo({y: initialOffset, animated: true});
     }
-  }, [selectedIndex]);
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <View style={[styles.container, {width}]}>
@@ -64,7 +62,15 @@ const ScrollPicker: React.FC<ScrollPickerProps> = ({
         showsVerticalScrollIndicator={false}
         snapToInterval={ITEM_HEIGHT}
         decelerationRate="fast"
-        onMomentumScrollEnd={handleScroll}
+        onScroll={handleScroll}
+        onMomentumScrollEnd={handleMomentumScrollEnd}
+        onScrollBeginDrag={() => {
+          isDraggingRef.current = true;
+        }}
+        onScrollEndDrag={() => {
+          isDraggingRef.current = false;
+        }}
+        scrollEventThrottle={16}
         style={styles.scrollView}>
         <View style={styles.spacer} />
         {data.map((item, index) => (
@@ -80,7 +86,6 @@ const ScrollPicker: React.FC<ScrollPickerProps> = ({
             <Text style={styles.itemText}>{item}</Text>
           </View>
         ))}
-        {/* Spacer below the last item to center the selected item */}
         <View style={styles.spacer} />
       </ScrollView>
       <View style={[styles.highlightBox, {width}]} />

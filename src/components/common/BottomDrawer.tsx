@@ -1,5 +1,10 @@
 import React, {useEffect, useRef} from 'react';
-import {Animated, Pressable, StyleSheet, View} from 'react-native';
+import {
+  Animated,
+  StyleSheet,
+  View,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import {rootStyles} from '../../styles/global.style';
 import CustomButton from '../UI/Button';
 
@@ -15,7 +20,7 @@ const BottomDrawer = ({
     Animated.timing(animation, {
       toValue: isBottomDrawerVisible ? 0 : 1000,
       useNativeDriver: true,
-      duration: 400, // Slightly reduced duration for quicker response
+      duration: 400,
     }).start();
   }, [isBottomDrawerVisible, animation]);
 
@@ -23,13 +28,14 @@ const BottomDrawer = ({
     Animated.timing(animation, {
       toValue: 1000,
       useNativeDriver: true,
-      duration: 400, // Matching duration for closing animation
+      duration: 400,
     }).start(() => {
       callback();
     });
   };
 
   const onCancel = () => {
+    console.log('cancel');
     closeDrawer(handleCancel);
   };
 
@@ -40,28 +46,27 @@ const BottomDrawer = ({
   return (
     <Animated.View
       style={[styles.animation, {transform: [{translateY: animation}]}]}>
-      <Pressable style={styles.bottomDrawerWrapper} onPress={onCancel}>
-        <Pressable
-          style={styles.container}
-          onPress={event => event.stopPropagation()}>
-          <View>{children}</View>
-          <View style={styles.footerActions}>
-            <CustomButton
-              width="50%"
-              textColor="#dadada"
-              title="cancel"
-              onPress={onCancel}
-            />
-            <View style={styles.separator} />
-            <CustomButton
-              textColor="#dadada"
-              width="50%"
-              title="save"
-              onPress={onSave}
-            />
-          </View>
-        </Pressable>
-      </Pressable>
+      <TouchableWithoutFeedback onPress={onCancel}>
+        <View style={styles.bottomDrawerWrapper} />
+      </TouchableWithoutFeedback>
+      <View style={styles.container}>
+        {children}
+        <View style={styles.footerActions}>
+          <CustomButton
+            width="50%"
+            textColor="#dadada"
+            title="cancel"
+            onPress={onCancel}
+          />
+          <View style={styles.separator} />
+          <CustomButton
+            textColor="#dadada"
+            width="50%"
+            title="save"
+            onPress={onSave}
+          />
+        </View>
+      </View>
     </Animated.View>
   );
 };
@@ -81,6 +86,7 @@ const styles = StyleSheet.create({
     backgroundColor: rootStyles.secondaryBackgroundColor,
     borderRadius: rootStyles.borderRadius,
     padding: 10,
+    left: 12,
   },
   footerActions: {
     flexDirection: 'row',
