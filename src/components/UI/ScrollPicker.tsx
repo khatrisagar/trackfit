@@ -83,7 +83,10 @@ const ScrollPicker: React.FC<ScrollPickerProps> = ({
                 backgroundColor: pickerStyle?.backgroundColor,
               },
             ]}>
-            <Text style={styles.itemText}>{item}</Text>
+            <Text
+              style={[styles.itemText, {fontSize: pickerStyle.fontSize ?? 18}]}>
+              {item}
+            </Text>
           </View>
         ))}
         <View style={styles.spacer} />
@@ -119,7 +122,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   itemText: {
-    fontSize: 18,
+    // fontSize: 18,
     color: rootStyles.primaryTextColor,
   },
   highlightBox: {

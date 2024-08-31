@@ -5,6 +5,7 @@ import TopBackNavigationView from '../components/layout/TopBackNavigationView';
 import CommonCard from '../components/common/CommonCard';
 import DateTimePicker from '../components/common/DateTimePicker';
 import BottomDrawer from '../components/common/BottomDrawer';
+import WeightPicker from '../components/common/WeightPicker';
 
 const Weight = ({navigation}: any) => {
   const isBottomDrawerVisible = useRef(false);
@@ -50,6 +51,14 @@ const Weight = ({navigation}: any) => {
         handleCancel={handleCancelWeight}
         isBottomDrawerVisible={isBottomDrawerVisible.current}>
         <View style={styles.datePickerWrapper}>
+          <WeightPicker
+            // eslint-disable-next-line react-native/no-inline-styles
+            pickerStyle={{
+              fontSize: 25,
+              backgroundColor: rootStyles.secondaryBackgroundColor,
+            }}
+          />
+
           <DateTimePicker
             pickerStyle={{
               backgroundColor: rootStyles.secondaryBackgroundColor,
