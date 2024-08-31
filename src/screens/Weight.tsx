@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
 import {rootStyles} from '../styles/global.style';
 import TopBackNavigationView from '../components/layout/TopBackNavigationView';
@@ -10,11 +10,14 @@ import WeightPicker from '../components/common/WeightPicker';
 const Weight = ({navigation}: any) => {
   const isBottomDrawerVisible = useRef(false);
 
+  const [userWeight, setUserWeight] = useState({kg: 0, gram: 0});
+
   const handleOnBack = () => {
     navigation.navigate('home');
   };
 
   const handleSaveWeight = () => {
+    console.log('Weight');
     isBottomDrawerVisible.current = false;
     triggerRerender();
   };
@@ -39,6 +42,9 @@ const Weight = ({navigation}: any) => {
       <CommonCard>
         <Text style={styles.text}>Text</Text>
         <Text style={styles.text}>Text</Text>
+        <Text style={styles.text}>
+          {userWeight.kg}.{userWeight.gram}
+        </Text>
       </CommonCard>
       <Button title="Open Drawer" onPress={openDrawer} />
       {/* <DateTimePicker
@@ -57,6 +63,8 @@ const Weight = ({navigation}: any) => {
               fontSize: 25,
               backgroundColor: rootStyles.secondaryBackgroundColor,
             }}
+            selectedWeight={userWeight}
+            onWeightSelect={setUserWeight}
           />
 
           <DateTimePicker

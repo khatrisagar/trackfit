@@ -1,33 +1,37 @@
-import React, {useState} from 'react';
-import {View, StyleSheet} from 'react-native';
+import React from 'react';
+import {View, StyleSheet, Text} from 'react-native';
 import ScrollPicker from '../UI/ScrollPicker';
-import {Text} from 'react-native-paper';
 
-const WeightPicker = ({pickerStyle}: any) => {
+const WeightPicker = ({pickerStyle, selectedWeight, onWeightSelect}: any) => {
   // Generate the data for the weight and decimal pickers
   const weightData = Array.from({length: 500}, (_, i) => (i + 1).toString());
   const decimalData = Array.from({length: 10}, (_, i) => i.toString());
 
-  // State to hold the selected weight and decimal values
-  const [selectedWeight, setSelectedWeight] = useState(weightData[0]);
-  const [selectedDecimal, setSelectedDecimal] = useState(decimalData[0]);
+  const onKilogramChange = (value: any) => {
+    onWeightSelect({kg: value, gram: selectedWeight.gram});
+  };
+  const onGramChange = (value: any) => {
+    onWeightSelect({kg: selectedWeight.kg, gram: value});
+  };
 
   return (
     <View style={styles.container}>
+      {/* <Text>{selectedWeight}.</Text>
+      <Text>{selectedDecimal}</Text> */}
       <ScrollPicker
         pickerStyle={pickerStyle}
         data={weightData}
         width={90}
-        selectedValue={selectedWeight}
-        onValueChange={value => setSelectedWeight(value)}
+        selectedValue={selectedWeight.kg}
+        onValueChange={onKilogramChange}
       />
       <Text style={styles.decimalSign}>.</Text>
       <ScrollPicker
         pickerStyle={pickerStyle}
         data={decimalData}
         width={90}
-        selectedValue={selectedDecimal}
-        onValueChange={value => setSelectedDecimal(value)}
+        selectedValue={selectedWeight.gram}
+        onValueChange={onGramChange}
       />
     </View>
   );

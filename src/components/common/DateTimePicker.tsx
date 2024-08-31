@@ -1,7 +1,6 @@
 import React, {useState, useMemo} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import ScrollPicker from '../UI/ScrollPicker';
-import {Text} from 'react-native-paper';
 
 interface DateValue {
   day: number;
@@ -62,9 +61,14 @@ const DateTimePicker: React.FC<DateTimePickerProps> = ({pickerStyle}) => {
   const [selectedMinute, setSelectedMinute] = useState<number>(
     currentDate.getMinutes(),
   );
-  console.log('date pcicker created again');
+
   return (
     <View style={styles.container}>
+      {/* <Text>
+        {selectedDate.day}/{selectedDate.month} {selectedHour}:{selectedMinute}{' '}
+        {selectedPeriod}
+      </Text> */}
+
       <ScrollPicker
         pickerStyle={pickerStyle}
         data={days.map(day => day.caption)}
