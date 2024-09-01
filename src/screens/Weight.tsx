@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
 import {rootStyles} from '../styles/global.style';
 import TopBackNavigationView from '../components/layout/TopBackNavigationView';
@@ -6,24 +6,80 @@ import CommonCard from '../components/common/CommonCard';
 import DateTimePicker from '../components/common/DateTimePicker';
 import BottomDrawer from '../components/common/BottomDrawer';
 import WeightPicker from '../components/common/WeightPicker';
+import {getDataFromStorage, storeDataInStorage} from '../services/asyncStorage';
 
 const Weight = ({navigation}: any) => {
+  console.log('1');
   const isBottomDrawerVisible = useRef(false);
 
-  const [userWeight, setUserWeight] = useState({kg: 0, gram: 0});
+  const [userWeight, setUserWeight] = useState({kg: 1, gram: 0});
+  const [userSelectedWeight, setSelectedUserWeight] = useState({
+    kg: 1,
+    gram: 0,
+  });
+
+  const [weights, setWeight] = useState([]);
+
+  useEffect(() => {
+    const fetchWeights = async () => {
+      const storedWeightData: any = await getDataFromStorage('user_weight');
+      if (storedWeightData) {
+        // console.log('storedWeightData', storedWeightData);
+        setWeight(storedWeightData);
+        const lastWeight = storedWeightData[storedWeightData.length - 1];
+        console.log('lastWeight', lastWeight);
+        setUserWeight(lastWeight);
+        setSelectedUserWeight(lastWeight);
+      }
+    };
+
+    fetchWeights();
+  }, []);
 
   const handleOnBack = () => {
     navigation.navigate('home');
   };
 
+  const saveWeightInStorage = async () => {
+    const currentDate = new Date();
+    const hours24 = currentDate.getHours();
+    const weightData = {
+      id: Date.now(),
+      kg: userWeight.kg,
+      gram: userWeight.gram,
+      day: currentDate.getDate(),
+      month: currentDate.getMonth() + 1,
+      year: currentDate.getFullYear(),
+      hour: hours24 % 12 || 12,
+      minutes: currentDate.getMinutes().toString().padStart(2, '0'),
+      period: hours24 >= 12 ? 'PM' : 'AM',
+    };
+    console.log('weightDatass', weightData);
+    const storedWeightData = await getDataFromStorage('user_weight');
+    // console.log('weightData', storedWeightData);
+    if (!storedWeightData) {
+      await storeDataInStorage('user_weight', [weightData]);
+    } else {
+      await storeDataInStorage('user_weight', [
+        ...storedWeightData,
+        weightData,
+      ]);
+    }
+  };
   const handleSaveWeight = () => {
-    console.log('Weight');
     isBottomDrawerVisible.current = false;
+    setUserWeight(userSelectedWeight);
     triggerRerender();
   };
-
+  useEffect(() => {
+    if (userWeight) {
+      console.log('Updated userWeight:', userWeight);
+      // Perform any actions needed after userWeight has been updated
+      // Save to storage or other operations can be performed here
+      saveWeightInStorage();
+    }
+  }, [userWeight]);
   const handleCancelWeight = () => {
-    console.log('cancel');
     isBottomDrawerVisible.current = false;
     triggerRerender();
   };
@@ -43,7 +99,10 @@ const Weight = ({navigation}: any) => {
         <Text style={styles.text}>Text</Text>
         <Text style={styles.text}>Text</Text>
         <Text style={styles.text}>
-          {userWeight.kg}.{userWeight.gram}
+          Current- {userWeight.kg}.{userWeight.gram}
+        </Text>
+        <Text style={styles.text}>
+          selected- {userSelectedWeight.kg}.{userSelectedWeight.gram}
         </Text>
       </CommonCard>
       <Button title="Open Drawer" onPress={openDrawer} />
@@ -64,14 +123,14 @@ const Weight = ({navigation}: any) => {
               backgroundColor: rootStyles.secondaryBackgroundColor,
             }}
             selectedWeight={userWeight}
-            onWeightSelect={setUserWeight}
+            onWeightSelect={setSelectedUserWeight}
           />
 
-          <DateTimePicker
+          {/* <DateTimePicker
             pickerStyle={{
               backgroundColor: rootStyles.secondaryBackgroundColor,
             }}
-          />
+          /> */}
         </View>
       </BottomDrawer>
     </View>

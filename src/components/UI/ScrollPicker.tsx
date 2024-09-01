@@ -12,11 +12,11 @@ import {rootStyles} from '../../styles/global.style';
 const ITEM_HEIGHT = 40; // Height of each item
 
 interface ScrollPickerProps {
-  data: string[];
+  data: string[] | any[];
   width?: number;
-  selectedValue: string;
+  selectedValue: string | number;
   pickerStyle: any;
-  onValueChange: (value: string) => void;
+  onValueChange: (value: any) => void;
 }
 const ScrollPicker: React.FC<ScrollPickerProps> = ({
   data,
@@ -25,9 +25,8 @@ const ScrollPicker: React.FC<ScrollPickerProps> = ({
   pickerStyle = {backgroundColor: rootStyles.primaryBackgroundColor},
   onValueChange,
 }) => {
-  console.log('scroller mount');
   const [selectedIndex, setSelectedIndex] = useState<number>(
-    data.indexOf(selectedValue),
+    data.indexOf(selectedValue as any),
   );
   const scrollViewRef = useRef<ScrollView>(null);
   const isDraggingRef = useRef(false); // Track if the user is dragging

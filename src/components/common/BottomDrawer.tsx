@@ -35,7 +35,6 @@ const BottomDrawer = ({
   };
 
   const onCancel = () => {
-    console.log('cancel');
     closeDrawer(handleCancel);
   };
 
@@ -43,7 +42,7 @@ const BottomDrawer = ({
     closeDrawer(handleSave);
   };
 
-  return (
+  return isBottomDrawerVisible ? (
     <Animated.View
       style={[styles.animation, {transform: [{translateY: animation}]}]}>
       <TouchableWithoutFeedback onPress={onCancel}>
@@ -68,7 +67,7 @@ const BottomDrawer = ({
         </View>
       </View>
     </Animated.View>
-  );
+  ) : null; // Conditionally render the drawer based on visibility
 };
 
 const styles = StyleSheet.create({
