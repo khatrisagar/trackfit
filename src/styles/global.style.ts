@@ -13,4 +13,5 @@ export const rootStyles = {
   borderRadius: 12,
   highlightPrimaryBGColor: '#1C1A1D', // '#141315' ,
   highlightSecondaryBGColor: '#141315', // '#141315' ,
+  themeColor: '#00e775e8',
 };

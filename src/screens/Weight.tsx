@@ -7,6 +7,7 @@ import DateTimePicker from '../components/common/DateTimePicker';
 import BottomDrawer from '../components/common/BottomDrawer';
 import WeightPicker from '../components/common/WeightPicker';
 import {getDataFromStorage, storeDataInStorage} from '../services/asyncStorage';
+import Linechart from '../components/charts/Linechart';
 
 const Weight = ({navigation}: any) => {
   console.log('1');
@@ -85,6 +86,7 @@ const Weight = ({navigation}: any) => {
   };
 
   const openDrawer = () => {
+    console.log('clicked');
     isBottomDrawerVisible.current = true;
     triggerRerender();
   };
@@ -106,6 +108,9 @@ const Weight = ({navigation}: any) => {
         </Text>
       </CommonCard>
       <Button title="Open Drawer" onPress={openDrawer} />
+      <CommonCard>
+        <Linechart />
+      </CommonCard>
       {/* <DateTimePicker
         pickerStyle={{
           backgroundColor: rootStyles.secondaryBackgroundColor,
